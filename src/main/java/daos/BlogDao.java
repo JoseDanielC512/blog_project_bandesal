@@ -5,10 +5,11 @@ import models.Blog;
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 import java.util.List;
 
 @ViewScoped
-public class BlogDao {
+public class BlogDao implements Serializable {
 
     @PersistenceContext
     private EntityManager em;

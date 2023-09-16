@@ -9,10 +9,32 @@
   <url>http://maven.apache.org</url>
   <dependencies>
 
+    <!-- https://mvnrepository.com/artifact/org.glassfish/javax.faces -->
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.faces</artifactId>
+      <version>2.3.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.weld.servlet</groupId>
+      <artifactId>weld-servlet-shaded</artifactId>
+      <version>3.1.4.Final</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/javax.faces/javax.faces-api -->
     <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>javax.faces-api</artifactId>
       <version>2.3</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -62,9 +84,18 @@
   </dependencies>
 
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>glassfish-repo</id>
+      <name>Glassfish Repository</name>
+      <url>https://maven.java.net/content/groups/promoted/</url>
+    </repository>
+  </repositories>
 
   <build>
     <finalName>blog_project</finalName>

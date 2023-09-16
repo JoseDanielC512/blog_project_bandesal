@@ -14,6 +14,9 @@ public class Reader implements Serializable {
     @Column(name = "NAME")
     String name;
 
+    @Column(name = "PASSWORD")
+    String password;
+
     public Reader() {
     }
 
@@ -31,5 +34,13 @@ public class Reader implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

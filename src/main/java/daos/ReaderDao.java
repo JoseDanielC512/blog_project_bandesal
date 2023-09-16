@@ -5,10 +5,11 @@ import models.Reader;
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 import java.util.List;
 
 @ViewScoped
-public class ReaderDao {
+public class ReaderDao implements Serializable {
 
     @PersistenceContext
     private EntityManager em;
