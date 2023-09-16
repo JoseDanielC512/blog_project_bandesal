@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Lista de Lectores</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <p:dataTable var="reader" value="#{readerController.allReaders}">
+            <p:column headerText="ID">
+                #{reader.id}
+            </p:column>
+            <p:column headerText="Nombre">
+                #{reader.name}
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+
+</html>
