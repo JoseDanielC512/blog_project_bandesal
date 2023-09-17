@@ -4,31 +4,48 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
-<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+
+
 
 <h:head>
     <title>#{resources['login_title']}</title>
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+    <h:outputStylesheet name="styles.css" />
 </h:head>
 
 <h:body>
+
+    <div class="card">
+        <h:form>
+            <div class="menubar-container">
+                <p:graphicImage name="bandesal.png" height="30" class="logo" />
+                <p:outputLabel value="BANCO DE DESARROLLO DE EL SALVADOR" class="bank-name" />
+            </div>
+        </h:form>
+    </div>
+
+    <br/>
+
     <h:form>
-        <p:panel header="#{resources['login_pnl_header']}" style="width: 300px; margin: 0 auto;">
+
+        <p:panel header="#{resources['login_pnl_header']}" style="width: 500px; margin: 0 auto;">
             <p:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
 
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="username" value="#{resources['login_user']}" />
-                <p:inputText id="username" value="#{readerBean.queryObject.name}" required="true" />
+                <p:inputText id="username" value="#{readerBean.name}" required="true" />
 
                 <h:outputLabel for="password" value="#{resources['login_password']}" />
-                <p:password id="password" value="#{readerBean.queryObject.password}" required="true" feedback="true" />
+                <p:password id="password" value="#{readerBean.password}" required="true" />
 
                 <p:commandButton value="#{resources['login_pnl_header']}" action="#{readerBean.login()}" update="msgs" icon="fas fa-sign-in-alt" />
-
             </h:panelGrid>
-
-            <h:outputLabel id="result" value="#{readerBean.result}" />
         </p:panel>
+
     </h:form>
+
+
+
 </h:body>
 </html>

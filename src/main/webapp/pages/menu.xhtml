@@ -6,24 +6,40 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
-    <title>Interfaz de Usuario</title>
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+    <h:outputStylesheet name="styles.css" />
 </h:head>
 
 <h:body>
+
+    <div class="card">
+        <h:form>
+            <div class="menubar-container">
+
+                <p:commandLink action="#{readerBean.irMenuPrincipal()}">
+                    <p:graphicImage name="bandesal.png" height="30" styleClass="logo" />
+                </p:commandLink>
+
+                <p:outputLabel value="BANCO DE DESARROLLO DE EL SALVADOR" class="bank-name" />
+            </div>
+        </h:form>
+    </div>
+
+    <br/>
+
     <h:form>
-        <!-- Barra de Navegación -->
-        <p:menubar>
-            <p:menuitem value="Iniciar Sesión" url="/login.xhtml" />
-            <p:menuitem value="Lectores" url="pages/readers.xhtml" />
-            <p:menuitem value="Blogs" url="pages/blogs_consulta.xhtml" />
-        </p:menubar>
-
-
-        <!-- Espacio para mostrar las páginas -->
-        <h:panelGroup id="content">
-            <ui:insert name="content" />
-        </h:panelGroup>
+    <div class="custom-card">
+        <p:menu orientation="vertical">
+            <p:submenu label="Menú Principal">
+                <p:menuitem value="Iniciar Sesión" url="login.xhtml" icon="fas fa-sign-in-alt" />
+                <p:menuitem value="Lectores" url="pages/readers.xhtml" icon="fas fa-sign-in-alt" />
+                <p:menuitem value="Blogs" action="#{readerBean.irBlogs()}" icon="fas fa-sign-in-alt" />
+            </p:submenu>
+        </p:menu>
+    </div>
     </h:form>
+
 </h:body>
 
 </html>

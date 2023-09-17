@@ -2,6 +2,7 @@ package beans;
 
 import models.Reader;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -16,6 +17,10 @@ public class ReaderBean implements Serializable {
 
     private Reader queryObject;
 
+    private String name;
+
+    private String password;
+
     private String result;
 
     private String readerName;
@@ -23,9 +28,9 @@ public class ReaderBean implements Serializable {
     private String readerPassword;
 
     public ReaderBean() {
-        getPropiedadesInicioSesion();
     }
 
+    @PostConstruct
     public void getPropiedadesInicioSesion() {
         ResourceBundle bundle = ResourceBundle.getBundle("blog");
         readerName = bundle.getString("reader.name");
@@ -35,13 +40,31 @@ public class ReaderBean implements Serializable {
 
     public String login() {
         try {
-            if (queryObject.getName().equals(this.readerName) && queryObject.getPassword().equals(this.readerPassword)) {
+            if (name.equals(this.readerName) && password.equals(this.readerPassword)) {
                 return "loginSuccess"; // Este es el outcome definido en el faces-config.xml
             } else {
                 throw new Exception("Credenciales inválidas");
             }
         } catch (Exception e) {
             this.result = "Error al iniciar sesión: " + e.getMessage();
+        }
+        return null;
+    }
+
+    public String irMenuPrincipal() {
+        try {
+            return "menuPrincipal";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String irBlogs() {
+        try {
+            return "consultarBlog";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -64,7 +87,19 @@ public class ReaderBean implements Serializable {
 
     private List<Reader> allReaders;
 
-    // Métodos para acceder a los EJBs y operar sobre las entidades
+    public String getName() {
+        return name;
+    }
 
-    // ...
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

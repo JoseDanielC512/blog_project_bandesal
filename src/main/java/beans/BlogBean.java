@@ -3,14 +3,14 @@ package beans;
 import daos.BlogDao;
 import models.Blog;
 
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 @Named
-@ViewScoped
+@ApplicationScoped
 public class BlogBean implements Serializable  {
 
     private static final long serialVersionUID = 1376319740144826761L;
@@ -38,14 +38,21 @@ public class BlogBean implements Serializable  {
         return null;
     }
 
-    public String enviarEditar() {
+    public String enviarEditar(Long id) {
         try {
+            this.object = id != null ? this.blogs.stream()
+                    .filter(blog -> blog.getId() == id)
+                    .findFirst()
+                    .orElse(null)
+                    : new Blog();
+
             return "editarBlog";
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
 
     public String regresarConsulta() {
         try {
@@ -65,7 +72,7 @@ public class BlogBean implements Serializable  {
                 dao.createBlog(this.object);
             }
 
-            //this.buscarBlogs();
+            this.buscarBlogs();
             return regresarConsulta();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,8 +80,20 @@ public class BlogBean implements Serializable  {
         return null;
     }
 
-    public void limpiarForm() {
+    public String borrarBlog(Long id) {
+        try {
+            dao.deleteBlog(id);
 
+            this.buscarBlogs();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void limpiarForm() {
+        this.queryObject = new Blog();
+        this.blogs = new ArrayList<>();
     }
 
 
