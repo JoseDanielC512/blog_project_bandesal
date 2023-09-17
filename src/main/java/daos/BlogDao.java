@@ -5,19 +5,50 @@ import models.Blog;
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ViewScoped
 public class BlogDao implements Serializable {
 
     private static final long serialVersionUID = -5850137462735843811L;
 
-    @PersistenceContext
+    @PersistenceContext(unitName="myPersistenceUnit")
     private final EntityManager em = JPAConfig.getEntityManagerFactory().createEntityManager();
 
-    public List<Blog> getAllBlogs() {
-        return em.createQuery("SELECT b FROM Blog b", Blog.class).getResultList();
+    public List<Blog> getAllBlogs(Blog blog) {
+        List<Blog> result = new ArrayList<Blog>();
+        List<Blog> list = null;
+
+        StringBuffer sql = new StringBuffer();
+        Query query = null;
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        sql.append("SELECT t FROM ");
+        sql.append(Blog.class.getCanonicalName());
+        sql.append(" t WHERE 1 = 1 ");
+
+        if (blog.getId() > 0) {
+            sql.append(" AND t.id = :id ");
+            map.put("id", blog.getId());
+        }
+
+        if (blog.getTitle() != null && !blog.getTitle().equals("")) {
+            sql.append(" AND t.title = :title ");
+            map.put("title", blog.getTitle());
+        }
+
+        sql.append(" ORDER BY t.id ");
+        query = em.createQuery(sql.toString());
+        for (Map.Entry<String, Object> valor : map.entrySet()) {
+            query.setParameter(valor.getKey(), valor.getValue());
+        }
+
+        return query.getResultList();
     }
 
     public void createBlog(Blog blog) {

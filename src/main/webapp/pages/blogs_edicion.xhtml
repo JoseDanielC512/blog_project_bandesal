@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Consulta de Blogs</title>
+</h:head>
+
+<h:body>
+
+    <title>Consulta de Blogs</title>
+
+    <h:form id="blogFormEdicion">
+        <p:panel header="Nueva Entrada">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="titulo" value="Título:"/>
+                <p:inputText id="titulo" value="#{blogBean.object.title}"/>
+
+                <h:outputLabel for="descripcion" value="Descripción:"/>
+                <p:inputText id="descripcion" value="#{blogBean.object.description}"/>
+
+            </h:panelGrid>
+        </p:panel>
+
+        <p:commandButton value="Regresar" action="#{blogBean.regresarConsulta()}"/>
+
+        <p:commandButton value="Actualizar" action="#{blogBean.actualizarBlog()}" />
+
+
+    </h:form>
+</h:body>
+
+</html>

@@ -7,13 +7,13 @@ import java.io.Serializable;
 @Table(name = "blogs_readers")
 public class BlogsReaders implements Serializable {
 
-    private static final long serialVersionUID = 7692160202595527714L;
+    //private static final long serialVersionUID = 7692160202595527714L;
 
     @Column(name = "R_ID")
-    long r_id;
+    private long r_id;
 
     @Column(name = "B_ID")
-    long b_id;
+    private long b_id;
 
     @Id
     @ManyToOne

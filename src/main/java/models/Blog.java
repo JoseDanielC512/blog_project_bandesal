@@ -7,18 +7,18 @@ import java.io.Serializable;
 @Table(name = "blogs")
 public class Blog implements Serializable {
 
-    private static final long serialVersionUID = 2612730568810908209L;
+    //private static final long serialVersionUID = 2612730568810908209L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    long id;
+    private long id;
 
     @Column(name = "TITLE")
-    String title;
+    private String title;
 
     @Column(name = "DESCRIPTION")
-    String description;
+    private String description;
 
     public Blog() {
     }

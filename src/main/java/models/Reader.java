@@ -6,18 +6,18 @@ import java.io.Serializable;
 @Table(name = "readers")
 public class Reader implements Serializable {
 
-    private static final long serialVersionUID = 961593531578787076L;
+    //private static final long serialVersionUID = 961593531578787076L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    long id;
+    private long id;
 
     @Column(name = "NAME")
-    String name;
+    private String name;
 
     @Column(name = "PASSWORD")
-    String password;
+    private String password;
 
     public Reader() {
     }

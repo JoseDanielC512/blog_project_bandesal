@@ -7,7 +7,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 @Named
 @ViewScoped
@@ -20,27 +20,61 @@ public class BlogBean implements Serializable  {
 
     private Blog queryObject;
 
-    private List<Blog> blogs;
+    private Blog object;
+
+    private ArrayList<Blog> blogs;
 
     public BlogBean() {
         queryObject = new Blog();
+        object = new Blog();
     }
 
     public String buscarBlogs() {
         try {
-            if (dao != null) {
-                this.blogs = dao.getAllBlogs();
-            } else {
-                // Manejo de excepción: El objeto dao es nulo
-                // Puedes registrar un mensaje de error o realizar otras acciones aquí
-                System.err.println("El objeto dao es nulo");
-            }
+            this.blogs = (ArrayList<Blog>) dao.getAllBlogs(queryObject);
         } catch (Exception e) {
-            // Manejo de excepción en caso de error al obtener los blogs
-            e.printStackTrace(); // Opcional: Imprime la traza de la excepción
-            // Puedes registrar un mensaje de error o realizar otras acciones aquí
+            e.printStackTrace();
         }
         return null;
+    }
+
+    public String enviarEditar() {
+        try {
+            return "editarBlog";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String regresarConsulta() {
+        try {
+            return "consultarBlog";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String actualizarBlog() {
+        try {
+            if(this.object.getId() > 0){
+                dao.updateBlog(this.object);
+            }
+            else {
+                dao.createBlog(this.object);
+            }
+
+            //this.buscarBlogs();
+            return regresarConsulta();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void limpiarForm() {
+
     }
 
 
@@ -52,15 +86,23 @@ public class BlogBean implements Serializable  {
         this.queryObject = queryObject;
     }
 
-    public List<Blog> getBlogs() {
+    public ArrayList<Blog> getBlogs() {
         return blogs;
     }
 
-    public void setBlogs(List<Blog> blogs) {
+    public void setBlogs(ArrayList<Blog> blogs) {
         this.blogs = blogs;
     }
 
     public void setDao(BlogDao dao) {
         this.dao = dao;
+    }
+
+    public Blog getObject() {
+        return object;
+    }
+
+    public void setObject(Blog object) {
+        this.object = object;
     }
 }

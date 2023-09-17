@@ -3,33 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://xmlns.jcp.org/jsf/html " xml:lang="es">
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Consulta de Blogs</title>
 </h:head>
 
 <h:body>
+
+    <title>Consulta de Blogs</title>
+
     <h:form id="blogForm">
         <p:panel header="Filtros de Consulta">
-            <h:panelGrid columns="3">
+            <h:panelGrid columns="2">
                 <h:outputLabel for="id" value="ID:"/>
                 <p:inputText id="id" value="#{blogBean.queryObject.id}"/>
 
                 <h:outputLabel for="titulo" value="Título:"/>
                 <p:inputText id="titulo" value="#{blogBean.queryObject.title}"/>
 
-                <p:commandButton value="Buscar" action="#{blogBean.buscarBlogs()}" update=":blogForm:tablaBlogs"/>
             </h:panelGrid>
         </p:panel>
 
-        <p:dataTable id="tablaBlogs" var="blog" value="#{blogBean.blogs}">
+        <p:commandButton value="Buscar" action="#{blogBean.buscarBlogs()}" update=":blogForm:tablaBlogs"/>
+
+        <p:commandButton value="Crear Entrada" action="#{blogBean.enviarEditar()}" />
+
+        <p:dataTable id="tablaBlogs" var="x" value="#{blogBean.blogs}">
             <p:column headerText="ID">
-                #{blog.id}
+                <h:outputText value="#{x.id}"/>
             </p:column>
+
             <p:column headerText="Título">
-                #{blog.title}
+                <h:outputText value="#{x.title}"/>
             </p:column>
 
         </p:dataTable>
