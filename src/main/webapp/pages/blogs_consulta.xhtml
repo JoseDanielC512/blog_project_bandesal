@@ -15,12 +15,12 @@
         <p:panel header="Filtros de Consulta">
             <h:panelGrid columns="3">
                 <h:outputLabel for="id" value="ID:"/>
-                <p:inputText id="id" value="#{blogBean.id}"/>
+                <p:inputText id="id" value="#{blogBean.queryObject.id}"/>
 
                 <h:outputLabel for="titulo" value="Título:"/>
-                <p:inputText id="titulo" value="#{blogBean.titulo}"/>
+                <p:inputText id="titulo" value="#{blogBean.queryObject.title}"/>
 
-                <p:commandButton value="Buscar" action="#{blogBean.buscar}" update=":blogForm:tablaBlogs"/>
+                <p:commandButton value="Buscar" action="#{blogBean.buscarBlogs()}" update=":blogForm:tablaBlogs"/>
             </h:panelGrid>
         </p:panel>
 
@@ -29,9 +29,9 @@
                 #{blog.id}
             </p:column>
             <p:column headerText="Título">
-                #{blog.titulo}
+                #{blog.title}
             </p:column>
-            <!-- Agrega más columnas según las propiedades de tu entidad Blog -->
+
         </p:dataTable>
     </h:form>
 </h:body>

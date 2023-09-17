@@ -5,7 +5,27 @@
               version="2.3">
 
     <application>
+        <resource-bundle>
+            <base-name>resources</base-name>
+            <var>resources</var>
+        </resource-bundle>
 
+        <resource-bundle>
+            <base-name>blog</base-name>
+            <var>blog</var>
+        </resource-bundle>
     </application>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>loginSuccess</from-outcome> <!-- Este es el nombre que eliges para el outcome -->
+            <to-view-id>/pages/menu.xhtml</to-view-id> <!-- Ruta de tu página -->
+        </navigation-case>
+    </navigation-rule>
+
+
+
+
 
 </faces-config>

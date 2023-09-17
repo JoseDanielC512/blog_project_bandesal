@@ -4,8 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "BLOGS_READERS")
+@Table(name = "blogs_readers")
 public class BlogsReaders implements Serializable {
+
+    private static final long serialVersionUID = 7692160202595527714L;
 
     @Column(name = "R_ID")
     long r_id;

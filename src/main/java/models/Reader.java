@@ -3,8 +3,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "READERS")
+@Table(name = "readers")
 public class Reader implements Serializable {
+
+    private static final long serialVersionUID = 961593531578787076L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

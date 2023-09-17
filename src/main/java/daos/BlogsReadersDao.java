@@ -10,6 +10,8 @@ import java.io.Serializable;
 @ViewScoped
 public class BlogsReadersDao implements Serializable  {
 
+    private static final long serialVersionUID = -6250137462735843811L;
+
     @PersistenceContext
     private EntityManager em;
 

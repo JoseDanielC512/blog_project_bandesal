@@ -2,23 +2,29 @@ package beans;
 
 import models.Reader;
 
-import javax.faces.bean.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class ReaderBean implements Serializable {
 
-    public Reader queryObject;
+    private static final long serialVersionUID = 7127319740144826061L;
 
-    public String result;
+    private Reader queryObject;
+
+    private String result;
 
     private String readerName;
 
     private String readerPassword;
+
+    public ReaderBean() {
+        getPropiedadesInicioSesion();
+    }
 
     public void getPropiedadesInicioSesion() {
         ResourceBundle bundle = ResourceBundle.getBundle("blog");
@@ -27,14 +33,17 @@ public class ReaderBean implements Serializable {
         queryObject = new Reader();
     }
 
-    public ReaderBean() {
-        getPropiedadesInicioSesion();
-    }
-
-    public void login(){
-        if(queryObject.getName().equals(this.readerName) && queryObject.getPassword().equals(this.readerPassword)){
-            this.result = "Inicio Exitoso!!!";
+    public String login() {
+        try {
+            if (queryObject.getName().equals(this.readerName) && queryObject.getPassword().equals(this.readerPassword)) {
+                return "loginSuccess"; // Este es el outcome definido en el faces-config.xml
+            } else {
+                throw new Exception("Credenciales inválidas");
+            }
+        } catch (Exception e) {
+            this.result = "Error al iniciar sesión: " + e.getMessage();
         }
+        return null;
     }
 
     public Reader getQueryObject() {

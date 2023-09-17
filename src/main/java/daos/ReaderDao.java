@@ -11,6 +11,8 @@ import java.util.List;
 @ViewScoped
 public class ReaderDao implements Serializable {
 
+    private static final long serialVersionUID = -4250857462735843811L;
+
     @PersistenceContext
     private EntityManager em;
 
