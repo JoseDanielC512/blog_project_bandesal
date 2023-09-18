@@ -43,6 +43,22 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>editarReader</from-outcome>
+            <to-view-id>/pages/readers_edicion.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>consultarReader</from-outcome>
+            <to-view-id>/pages/readers_consulta.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
             <from-outcome>menuPrincipal</from-outcome>
             <to-view-id>/pages/menu.xhtml</to-view-id>
         </navigation-case>

@@ -37,7 +37,7 @@ public class BlogDao implements Serializable {
             map.put("id", blog.getId());
         }
 
-        if (blog.getTitle() != null && !blog.getTitle().equals("")) {
+        if (blog.getTitle() != null && !blog.getTitle().isEmpty()) {
             sql.append(" AND t.title = :title ");
             map.put("title", blog.getTitle());
         }

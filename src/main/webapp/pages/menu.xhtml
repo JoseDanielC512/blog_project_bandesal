@@ -33,7 +33,7 @@
         <p:menu orientation="vertical">
             <p:submenu label="Menú Principal">
                 <p:menuitem value="Iniciar Sesión" url="login.xhtml" icon="fas fa-sign-in-alt" />
-                <p:menuitem value="Lectores" url="pages/readers.xhtml" icon="fas fa-sign-in-alt" />
+                <p:menuitem value="Lectores" action="#{readerBean.regresarConsulta()}" icon="fas fa-sign-in-alt" />
                 <p:menuitem value="Blogs" action="#{readerBean.irBlogs()}" icon="fas fa-sign-in-alt" />
             </p:submenu>
         </p:menu>

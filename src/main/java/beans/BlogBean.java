@@ -53,7 +53,6 @@ public class BlogBean implements Serializable  {
         return null;
     }
 
-
     public String regresarConsulta() {
         try {
             return "consultarBlog";

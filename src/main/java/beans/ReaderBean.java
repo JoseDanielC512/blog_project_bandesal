@@ -1,21 +1,28 @@
 package beans;
 
+import daos.ReaderDao;
 import models.Reader;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 @Named
-@ViewScoped
+@ApplicationScoped
 public class ReaderBean implements Serializable {
 
     private static final long serialVersionUID = 7127319740144826061L;
 
+    @Inject
+    private ReaderDao dao;
+
     private Reader queryObject;
+
+    private Reader object;
 
     private String name;
 
@@ -27,6 +34,8 @@ public class ReaderBean implements Serializable {
 
     private String readerPassword;
 
+    private ArrayList<Reader> readers;
+
     public ReaderBean() {
     }
 
@@ -36,6 +45,7 @@ public class ReaderBean implements Serializable {
         readerName = bundle.getString("reader.name");
         readerPassword = bundle.getString("reader.password");
         queryObject = new Reader();
+        object = new Reader();
     }
 
     public String login() {
@@ -69,6 +79,72 @@ public class ReaderBean implements Serializable {
         return null;
     }
 
+    public String regresarConsulta() {
+        try {
+            return "consultarReader";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String buscarReaders() {
+        try {
+            this.readers = (ArrayList<Reader>) dao.getAllReaders(queryObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void limpiarForm() {
+        this.queryObject = new Reader();
+        this.readers = new ArrayList<>();
+    }
+
+    public String enviarEditar(Long id) {
+        try {
+            this.object = id != null ? this.readers.stream()
+                    .filter(blog -> blog.getId() == id)
+                    .findFirst()
+                    .orElse(null)
+                    : new Reader();
+
+            return "editarReader";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String actualizarReader() {
+        try {
+            if(this.object.getId() > 0){
+                dao.updateReader(this.object);
+            }
+            else {
+                dao.createReader(this.object);
+            }
+
+            this.buscarReaders();
+            return regresarConsulta();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String borrarReader(Long id) {
+        try {
+            dao.deleteReader(id);
+
+            this.buscarReaders();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Reader getQueryObject() {
         return queryObject;
     }
@@ -85,8 +161,6 @@ public class ReaderBean implements Serializable {
         this.result = result;
     }
 
-    private List<Reader> allReaders;
-
     public String getName() {
         return name;
     }
@@ -101,5 +175,21 @@ public class ReaderBean implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Reader> getReaders() {
+        return readers;
+    }
+
+    public void setReaders(ArrayList<Reader> readers) {
+        this.readers = readers;
+    }
+
+    public Reader getObject() {
+        return object;
+    }
+
+    public void setObject(Reader object) {
+        this.object = object;
     }
 }
