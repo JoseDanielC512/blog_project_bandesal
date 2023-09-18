@@ -28,17 +28,32 @@
 
     <br/>
 
-    <h:form>
-    <div class="custom-card">
-        <p:menu orientation="vertical">
-            <p:submenu label="Menú Principal">
-                <p:menuitem value="Iniciar Sesión" url="login.xhtml" icon="fas fa-sign-in-alt" />
-                <p:menuitem value="Lectores" action="#{readerBean.regresarConsulta()}" icon="fas fa-sign-in-alt" />
-                <p:menuitem value="Blogs" action="#{readerBean.irBlogs()}" icon="fas fa-sign-in-alt" />
-            </p:submenu>
-        </p:menu>
+    <div class="ui-g-12 ui-lg-12 paddingCard">
+        <div class="ui-g">
+
+            <div class="ui-g-12 ui-md-2 ui-lg-2 ">
+                <h:form>
+                    <div>
+                        <p:menu orientation="vertical">
+                            <p:submenu label="Menú Principal">
+                                <p:menuitem value="Iniciar Sesión" url="login.xhtml" icon="fas fa-sign-in-alt"/>
+                                <p:menuitem value="Lectores" action="#{readerBean.regresarConsulta()}"
+                                            icon="fas fa-sign-in-alt"/>
+                                <p:menuitem value="Blogs" action="#{readerBean.irBlogs()}" icon="fas fa-sign-in-alt"/>
+                            </p:submenu>
+                        </p:menu>
+                    </div>
+                </h:form>
+            </div>
+
+            <div class="ui-g-12 ui-md-10 ui-lg-10">
+                <ui:fragment>
+                    <ui:include src="/pages/blogs_readers.xhtml" />
+                </ui:fragment>
+            </div>
+
+        </div>
     </div>
-    </h:form>
 
 </h:body>
 

@@ -6,6 +6,7 @@ import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class ReaderDao implements Serializable {
 
     private static final long serialVersionUID = -4250857462735843811L;
 
-    @PersistenceContext
+    @PersistenceContext(unitName="myPersistenceUnit")
     private EntityManager em = JPAConfig.getEntityManagerFactory().createEntityManager();
 
     public List<Reader> getAllReaders(Reader reader) {
@@ -59,6 +60,17 @@ public class ReaderDao implements Serializable {
 
     public Reader getReaderById(Long id) {
         return em.find(Reader.class, id);
+    }
+
+    public Reader getReaderByNameAndPassword(String name, String password) {
+        TypedQuery<Reader> query = em.createQuery(
+                "SELECT r FROM Reader r WHERE r.name = :name AND r.password = :password", Reader.class);
+        query.setParameter("name", name);
+        query.setParameter("password", password);
+
+        List<Reader> resultList = query.getResultList();
+
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     public void updateReader(Reader reader) {

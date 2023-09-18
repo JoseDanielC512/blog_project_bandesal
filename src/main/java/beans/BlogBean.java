@@ -18,6 +18,9 @@ public class BlogBean implements Serializable  {
     @Inject
     private BlogDao dao;
 
+    @Inject
+    private ReaderBean readerBean;
+
     private Blog queryObject;
 
     private Blog object;
@@ -68,6 +71,7 @@ public class BlogBean implements Serializable  {
                 dao.updateBlog(this.object);
             }
             else {
+                //dao.createBlogReader();
                 dao.createBlog(this.object);
             }
 

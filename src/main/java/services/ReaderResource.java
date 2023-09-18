@@ -1,29 +1,27 @@
 package services;
 
-import daos.BlogDao;
-import models.Blog;
+import daos.ReaderDao;
+import models.Reader;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
-@Path("/blogs")
-public class BlogResource {
+@Path("/readers")
+public class ReaderResource {
 
-    private BlogDao blogDao;
+    private ReaderDao readerDao;
 
-    public BlogResource() {
-        blogDao = new BlogDao();
+    public ReaderResource() {
+        readerDao = new ReaderDao();
     }
 
     @GET
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Blog> getAllUserBlogs(@PathParam("id") Long id) {
+    public Reader getReader(@PathParam("id") Long id) {
         try {
-            Blog blog = new Blog();
-            blog.setId(id);
-            return blogDao.getAllBlogs(blog);
+            return readerDao.getReaderById(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
@@ -32,22 +30,10 @@ public class BlogResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createBlog(Blog blog) {
+    public Response createReader(Reader reader) {
         try {
-            blogDao.createBlog(blog);
+            readerDao.createReader(reader);
             return Response.status(Response.Status.CREATED).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Blog getBlog(@PathParam("id") Long id) {
-        try {
-            return blogDao.getBlogById(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
@@ -57,12 +43,12 @@ public class BlogResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateBlog(@PathParam("id") Long id, Blog blog) {
+    public Response updateReader(@PathParam("id") Long id, Reader reader) {
         try {
-            Blog existingBlog = blogDao.getBlogById(id);
-            if (existingBlog != null) {
-                blog.setId(id);
-                blogDao.updateBlog(blog);
+            Reader existingReader = readerDao.getReaderById(id);
+            if (existingReader != null) {
+                reader.setId(id);
+                readerDao.updateReader(reader);
                 return Response.status(Response.Status.OK).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
@@ -75,11 +61,11 @@ public class BlogResource {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteBlog(@PathParam("id") Long id) {
+    public Response deleteReader(@PathParam("id") Long id) {
         try {
-            Blog existingBlog = blogDao.getBlogById(id);
-            if (existingBlog != null) {
-                blogDao.deleteBlog(id);
+            Reader existingReader = readerDao.getReaderById(id);
+            if (existingReader != null) {
+                readerDao.deleteReader(id);
                 return Response.status(Response.Status.OK).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
@@ -90,3 +76,4 @@ public class BlogResource {
         }
     }
 }
+

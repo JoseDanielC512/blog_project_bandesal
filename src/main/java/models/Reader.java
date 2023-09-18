@@ -1,6 +1,8 @@
 package models;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "readers")
@@ -18,6 +20,9 @@ public class Reader implements Serializable {
 
     @Column(name = "PASSWORD")
     private String password;
+
+    @OneToMany(mappedBy = "reader")
+    private List<BlogsReaders> blogsReadersList;
 
     public Reader() {
     }
@@ -44,5 +49,13 @@ public class Reader implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<BlogsReaders> getBlogsReadersList() {
+        return blogsReadersList;
+    }
+
+    public void setBlogsReadersList(List<BlogsReaders> blogsReadersList) {
+        this.blogsReadersList = blogsReadersList;
     }
 }

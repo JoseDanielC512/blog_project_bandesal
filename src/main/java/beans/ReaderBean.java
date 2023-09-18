@@ -1,12 +1,16 @@
 package beans;
 
 import daos.ReaderDao;
+import models.Blog;
 import models.Reader;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.JerseyClientBuilder;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.client.Client;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -24,6 +28,8 @@ public class ReaderBean implements Serializable {
 
     private Reader object;
 
+    private Reader reader;
+
     private String name;
 
     private String password;
@@ -36,7 +42,13 @@ public class ReaderBean implements Serializable {
 
     private ArrayList<Reader> readers;
 
+    private ArrayList<Blog> blogs;
+
+    private Client client;
+
     public ReaderBean() {
+        ClientConfig config = new ClientConfig();
+        this.client = JerseyClientBuilder.newClient(config);
     }
 
     @PostConstruct
@@ -50,7 +62,27 @@ public class ReaderBean implements Serializable {
 
     public String login() {
         try {
-            if (name.equals(this.readerName) && password.equals(this.readerPassword)) {
+
+            // Si el lector existe, obtendremos todos sus blogs por medio del API REST
+            /*WebTarget target = client.target("http://localhost:8080/blog_project/services/readers/" + reader.getId());
+            Response response = target.request(MediaType.APPLICATION_JSON).get();
+            if (response.getStatus() == 200) {
+                this.reader = response.readEntity(new GenericType<Reader>() {
+                });
+                if (this.reader != null) {
+                    return "loginSuccess";
+                }
+            } else {
+                this.result = "Error al iniciar sesión";
+            }*/
+
+
+            this.reader = dao.getReaderByNameAndPassword(this.name, this.password);
+            if (this.reader != null) {
+
+                return "loginSuccess";
+            }
+            else if (name.equals(this.readerName) && password.equals(this.readerPassword)) {
                 return "loginSuccess"; // Este es el outcome definido en el faces-config.xml
             } else {
                 throw new Exception("Credenciales inválidas");
@@ -105,7 +137,7 @@ public class ReaderBean implements Serializable {
     public String enviarEditar(Long id) {
         try {
             this.object = id != null ? this.readers.stream()
-                    .filter(blog -> blog.getId() == id)
+                    .filter(reader -> reader.getId() == id)
                     .findFirst()
                     .orElse(null)
                     : new Reader();
@@ -191,5 +223,21 @@ public class ReaderBean implements Serializable {
 
     public void setObject(Reader object) {
         this.object = object;
+    }
+
+    public Reader getReader() {
+        return reader;
+    }
+
+    public void setReader(Reader reader) {
+        this.reader = reader;
+    }
+
+    public ArrayList<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(ArrayList<Blog> blogs) {
+        this.blogs = blogs;
     }
 }

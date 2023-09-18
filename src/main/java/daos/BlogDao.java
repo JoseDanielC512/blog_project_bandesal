@@ -1,6 +1,8 @@
 package daos;
 
 import models.Blog;
+import models.BlogsReaders;
+import models.Reader;
 
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
@@ -73,6 +75,15 @@ public class BlogDao implements Serializable {
         if (blog != null) {
             em.remove(blog);
         }
+        em.getTransaction().commit();
+    }
+
+    public void createBlogReader(Blog blog, Reader reader) {
+        em.getTransaction().begin();
+        BlogsReaders br = new BlogsReaders();
+        br.setB_id(blog.getId());
+        br.setR_id(reader.getId());
+        em.persist(br);
         em.getTransaction().commit();
     }
 }
